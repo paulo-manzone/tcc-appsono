@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tccappsono/alarme.dart';
-import 'package:tccappsono/dica.dart';
-import 'package:tccappsono/dormir.dart';
-import 'package:tccappsono/visaogeral.dart';
+import 'package:tccappsono/screens/alarme.dart';
+import 'package:tccappsono/screens/dica.dart';
+import 'package:tccappsono/screens/dormir.dart';
+import 'package:tccappsono/screens/visaogeral.dart';
 
 class Principal extends StatelessWidget {
   const Principal({Key key}) : super(key: key);
@@ -20,7 +20,7 @@ class Principal extends StatelessWidget {
           ],
         ), centerTitle: true),
         body: Container(
-          child: Column(
+          child: ListView(
             children: <Widget>[
               GestureDetector(
                 onTap: (){
@@ -30,10 +30,10 @@ class Principal extends StatelessWidget {
                   elevation: 4,
                   borderOnForeground: true,
                   color: Colors.blue[300],
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Container(
                     padding: EdgeInsets.only(left: 20),
-                    height: 80,
+                    height: MediaQuery.of(context).size.height*0.1,
                     decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
                     child: Row(
                       children: <Widget>[
@@ -55,10 +55,10 @@ class Principal extends StatelessWidget {
                   elevation: 4,
                   borderOnForeground: true,
                   color: Colors.blue[300],
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Container(
                     padding: EdgeInsets.only(left: 20),
-                    height: 100,
+                    height: MediaQuery.of(context).size.height*0.1,
                     decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.yellowAccent[100], width: 15))),
                     child: Row(
                       children: <Widget>[
@@ -80,10 +80,10 @@ class Principal extends StatelessWidget {
                   elevation: 4,
                   borderOnForeground: true,
                   color: Colors.blue[300],
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Container(
                     padding: EdgeInsets.only(left: 20),
-                    height: 130,
+                    height: MediaQuery.of(context).size.height*0.25,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.orange[200], width: 15))),
                     child: Column(
@@ -100,11 +100,11 @@ class Principal extends StatelessWidget {
                   )
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 5),
 
               SizedBox(
                 width: 200,
-                height: 200,
+                height: MediaQuery.of(context).size.height*0.3,
                 child: FloatingActionButton.extended(
                   shape: CircleBorder(),
                   backgroundColor: Colors.green[300],

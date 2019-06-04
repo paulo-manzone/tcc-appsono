@@ -58,7 +58,7 @@ class Alarme extends StatelessWidget {
                   label: Text('Agendar'),
                   icon: Icon(Icons.access_alarm),
                   onPressed: (){
-                    //Registrar sono
+                    //Guardar horário do alarme
                     
 
                   },
