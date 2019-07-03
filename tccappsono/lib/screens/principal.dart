@@ -4,6 +4,7 @@ import 'package:tccappsono/screens/alarme.dart';
 import 'package:tccappsono/screens/dica.dart';
 import 'package:tccappsono/screens/dormir.dart';
 import 'package:tccappsono/screens/visaogeral.dart';
+import 'package:tccappsono/screens/sensor.dart';
 
 class Principal extends StatelessWidget {
   const Principal({Key key}) : super(key: key);
@@ -113,7 +114,7 @@ class Principal extends StatelessWidget {
                   icon: Icon(Icons.access_alarm),
                   onPressed: (){
                     //Registrar sono
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dormir()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Sensor()));
 
                   },
                 ),
