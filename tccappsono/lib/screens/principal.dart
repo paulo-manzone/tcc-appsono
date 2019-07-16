@@ -114,7 +114,7 @@ class Principal extends StatelessWidget {
                   icon: Icon(Icons.access_alarm),
                   onPressed: (){
                     //Registrar sono
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Sensor()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dormir()));
 
                   },
                 ),
