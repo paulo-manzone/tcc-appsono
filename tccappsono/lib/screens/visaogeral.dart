@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tccappsono/services/http.dart';
 
 class VisaoGeral extends StatefulWidget {
   VisaoGeral({Key key}) : super(key: key);
@@ -7,6 +8,25 @@ class VisaoGeral extends StatefulWidget {
 }
 
 class _VisaoGeralState extends State<VisaoGeral> {
+
+//Carregando através de API o valor do status
+  String status = "Carregando...";
+  String regularidade = "Carregando...";
+
+  _VisaoGeralState() {
+    getStatus().then((val) => setState(() {
+      this.status = val;
+    })).catchError((err) => 
+      this.status = "ServerDown"
+    );
+
+    getRegularidade().then((val) => setState(() {
+      this.regularidade = val;
+    })).catchError((err) => 
+      this.regularidade = "ServerDown"
+    );
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +45,9 @@ class _VisaoGeralState extends State<VisaoGeral> {
                         decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
                         child: Row(
                           children: <Widget>[
-                            Text('Qualidade Geral:', style: TextStyle(fontSize: 25, color: Colors.white)),
-                            SizedBox(width: 20),
-                            Text('Bom', style: TextStyle(fontSize: 20, color: Colors.white)),
+                            Text('Estado:', style: TextStyle(fontSize: 25, color: Colors.white)),
                             SizedBox(width: 15),
-                            Container(height: 30, width: 30, child: Icon(Icons.info, color: Colors.white)),
+                            Text(this.status, style: TextStyle(fontSize: 25, color: Colors.white)),
                           ],
                         ),
                       )
@@ -45,11 +63,9 @@ class _VisaoGeralState extends State<VisaoGeral> {
                         decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
                         child: Row(
                           children: <Widget>[
-                            Text('Qualidade Geral:', style: TextStyle(fontSize: 25, color: Colors.white)),
+                            Text('Regularidade:', style: TextStyle(fontSize: 25, color: Colors.white)),
                             SizedBox(width: 20),
-                            Text('Bom', style: TextStyle(fontSize: 20, color: Colors.white)),
-                            SizedBox(width: 15),
-                            Container(height: 30, width: 30, child: Icon(Icons.info, color: Colors.white)),
+                            Text(this.regularidade , style: TextStyle(fontSize: 20, color: Colors.white)),
                           ],
                         ),
                       )

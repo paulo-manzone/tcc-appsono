@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tccappsono/services/http.dart';
 
 class Dica extends StatefulWidget {
   Dica({Key key}) : super(key: key);
@@ -7,6 +8,17 @@ class Dica extends StatefulWidget {
 }
 
 class _DicaState extends State<Dica> {
+
+  String dica = "Carregando...";
+
+  _DicaState() {
+    getMessage().then((val) => setState(() {
+      this.dica = val;
+    })).catchError((err) => 
+      this.dica = "ServerDown"
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +32,7 @@ class _DicaState extends State<Dica> {
             padding: EdgeInsets.all(15),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Text('Texto Texto Texto Texto Texto Texto Texto Texto Texto ', style: TextStyle(fontSize: 20)),
+            child: Text(this.dica, style: TextStyle(fontSize: 20)),
           ),
         ),
       )

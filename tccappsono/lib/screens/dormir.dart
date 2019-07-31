@@ -13,6 +13,12 @@ class Dormir extends StatefulWidget {
 class _DormirState extends State<Dormir> {
 
 
+  esperaresair() async {
+    await new Future.delayed(const Duration(seconds: 1));
+    Navigator.pop(context);
+  }
+
+
   var texto = "Aperte para começar", horac, horaf;
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true, comecou= false;
@@ -30,6 +36,7 @@ class _DormirState extends State<Dormir> {
             horaf = DateTime.now();
             DataBase db = new DataBase();
             db.gravarSono(horac, horaf, sono);
+            esperaresair();
           } else {
             texto = "Gravando! Pressione novamente para finalizar";
             horac = DateTime.now();
@@ -66,7 +73,13 @@ class _DormirState extends State<Dormir> {
 
       },
       child: Center(
-        child: Text(this.texto),
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 10),
+            Text(this.texto, style: TextStyle(fontSize: 20, color: Colors.white, )),
+            Container(height: 30, width: 30, child: Icon(Icons.access_time, color: Colors.white)),
+          ],
+        ),
       )
       );
   }

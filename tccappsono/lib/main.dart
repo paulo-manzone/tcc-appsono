@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/principal.dart';
 import 'package:flutter/services.dart';
+import 'screens/telaprincipal.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       title: 'App-sono',
-      home: Principal(),
+      home: TelaPrincipal(),
     );
   }
 }
