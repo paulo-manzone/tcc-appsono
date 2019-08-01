@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
+import 'package:tccappsono/services/alarm.dart';
 import 'package:tccappsono/services/authentication.dart';
 import 'package:tccappsono/services/database.dart';
 
@@ -19,7 +20,7 @@ class _DormirState extends State<Dormir> {
     Navigator.pop(context);
   }
 
-
+  static Alarme alarme = new Alarme();
   var texto = "Aperte para começar", horac, horaf, usuario;
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true, comecou= false;
@@ -34,6 +35,7 @@ class _DormirState extends State<Dormir> {
           if(comecou){
             texto = "Gravado!";
             timer.cancel();
+            _DormirState.alarme.stop();
             horaf = DateTime.now();
             DataBase db = new DataBase();
             Auth a = new Auth();
@@ -42,6 +44,7 @@ class _DormirState extends State<Dormir> {
             esperaresair();
           } else {
             texto = "Gravando! Aperte para finalizar";
+            alarme.teste(10);
             horac = DateTime.now();
             comecou = true;
             accelerometerEvents.listen((AccelerometerEvent event) {
@@ -76,14 +79,8 @@ class _DormirState extends State<Dormir> {
 
       },
       child: Center(
-        child: Row(
-          children: <Widget>[
-            SizedBox(width: 10),
-            Text(this.texto, style: TextStyle(fontSize: 10, color: Colors.white)),
-            Container(height: 30, width: 30, child: Icon(Icons.access_time, color: Colors.white)),
-          ],
-        ),
-      )
+            child: Text(this.texto, style: TextStyle(fontSize: 10, color: Colors.white))
+          )
       );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tccappsono/services/http.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:tccappsono/widgets/graph.dart';
+//import 'package:charts_flutter/flutter.dart' as charts;
+//import 'package:tccappsono/widgets/graph.dart';
 
 class VisaoGeral extends StatefulWidget {
   VisaoGeral({Key key}) : super(key: key);
