@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
+import 'package:tccappsono/services/authentication.dart';
 import 'package:tccappsono/services/database.dart';
 
 class Dormir extends StatefulWidget {
@@ -19,7 +20,7 @@ class _DormirState extends State<Dormir> {
   }
 
 
-  var texto = "Aperte para começar", horac, horaf;
+  var texto = "Aperte para começar", horac, horaf, usuario;
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true, comecou= false;
   int position=0;
@@ -35,10 +36,12 @@ class _DormirState extends State<Dormir> {
             timer.cancel();
             horaf = DateTime.now();
             DataBase db = new DataBase();
-            db.gravarSono(horac, horaf, sono);
+            Auth a = new Auth();
+            usuario = a.getUser().email;
+            db.gravarSono(horac, horaf, sono, usuario);
             esperaresair();
           } else {
-            texto = "Gravando! Pressione novamente para finalizar";
+            texto = "Gravando! Aperte para finalizar";
             horac = DateTime.now();
             comecou = true;
             accelerometerEvents.listen((AccelerometerEvent event) {
@@ -76,7 +79,7 @@ class _DormirState extends State<Dormir> {
         child: Row(
           children: <Widget>[
             SizedBox(width: 10),
-            Text(this.texto, style: TextStyle(fontSize: 20, color: Colors.white, )),
+            Text(this.texto, style: TextStyle(fontSize: 10, color: Colors.white)),
             Container(height: 30, width: 30, child: Icon(Icons.access_time, color: Colors.white)),
           ],
         ),
