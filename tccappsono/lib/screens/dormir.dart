@@ -5,6 +5,7 @@ import 'package:sensors/sensors.dart';
 import 'package:tccappsono/services/alarm.dart';
 import 'package:tccappsono/services/authentication.dart';
 import 'package:tccappsono/services/database.dart';
+import 'package:screen/screen.dart';
 
 class Dormir extends StatefulWidget {
   Dormir({Key key}) : super(key: key);
@@ -14,6 +15,27 @@ class Dormir extends StatefulWidget {
 
 class _DormirState extends State<Dormir> {
 
+  var horaalarme='50';
+  var minutoalarme='50';
+
+  _DormirState() {
+    Screen.keepOn(true);
+    ler();
+  }
+
+  dispose(){
+    this.dispose();
+  }
+
+  ler()async{
+    DataBase db1 = new DataBase();
+    Auth au = new Auth();
+
+     horaalarme =  await db1.getH(au.getUser().email);
+     minutoalarme =  await db1.getM(au.getUser().email);
+     print(horaalarme);
+     print(minutoalarme);
+  }
 
   esperaresair() async {
     await new Future.delayed(const Duration(seconds: 1));
@@ -44,7 +66,8 @@ class _DormirState extends State<Dormir> {
             esperaresair();
           } else {
             texto = "Gravando! Aperte para finalizar";
-            alarme.teste(10);
+            if(int.parse(horaalarme)!=50)
+              alarme.setAlarm(int.parse(horaalarme),int.parse(minutoalarme));
             horac = DateTime.now();
             comecou = true;
             accelerometerEvents.listen((AccelerometerEvent event) {
@@ -74,7 +97,7 @@ class _DormirState extends State<Dormir> {
               mexeu = false;
             });
           }
-
+        
           
 
       },

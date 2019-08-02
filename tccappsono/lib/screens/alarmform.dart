@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:tccappsono/services/database.dart';
 import 'package:tccappsono/services/authentication.dart';
 
-class Alarme extends StatelessWidget {
-  const Alarme({Key key}) : super(key: key);
+class AlarmeForm extends StatefulWidget {
+  AlarmeForm({Key key}) : super(key: key);
 
-  
+  _AlarmeFormState createState() => _AlarmeFormState();
+}
+
+class _AlarmeFormState extends State<AlarmeForm> {
+
+  final horaController = TextEditingController();
+  final intervaloController = TextEditingController();
+  final minutoController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
 
-    final horaController = TextEditingController();
-    final intervaloController = TextEditingController();
-    final minutoController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Alarme')),
+      appBar: AppBar(title: Text('Editar Alarme')),
       body: Container(
         child: Form(
           key: _formKey,
@@ -40,7 +44,7 @@ class Alarme extends StatelessWidget {
                       hintText: 'digite os minutos',
                       labelText: 'Minuto:',
                     )
-              ),
+              ),/*
               TextFormField(
                 controller: intervaloController,
                 decoration: const InputDecoration(
@@ -48,7 +52,7 @@ class Alarme extends StatelessWidget {
                       hintText: 'digite o intervalo',
                       labelText: 'Intervalo:',
                     )
-              ),
+              ),*/
               SizedBox(height: 100),
               Container(
                 width: 150,
@@ -63,8 +67,9 @@ class Alarme extends StatelessWidget {
                     //Guardar horário do alarme
                     DataBase db = new DataBase();
                     Auth auth = new Auth();
-                    //db.gravarAlarme(horaController.toString(), minutoController.toString(),  auth.getUser());
-
+                    
+                    db.gravarAlarme(horaController.text, minutoController.text, auth.getUser().email);
+                    Navigator.pop(context);
                   },
                 ),
               )

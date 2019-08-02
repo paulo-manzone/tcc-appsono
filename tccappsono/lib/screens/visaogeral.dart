@@ -89,14 +89,16 @@ class _VisaoGeralState extends State<VisaoGeral> {
                       child: Container(
                         padding: EdgeInsets.only(left: 20),
                         height: MediaQuery.of(context).size.height*0.5,
-                        decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.yellow, width: 15), left:BorderSide(color: Colors.green, width: 5))),
+                        decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.yellow, width: 15), left:BorderSide(color: Colors.yellow, width: 5))),
                         child: Column(
                           children: <Widget>[
-                            Row(children: <Widget>[Text('Lembretes:', style: TextStyle(fontSize: 25, color: Colors.white))],),
+                            Row(children: <Widget>[Text('Instruções:', style: TextStyle(fontSize: 25, color: Colors.white))],),
                             SizedBox(height: MediaQuery.of(context).size.height*0.05),
-                            Text('1: Celular deve estar no silencioso;', style: TextStyle(fontSize: 25, color: Colors.white)),
-                            Text('2: Celular deve estar na cama;', style: TextStyle(fontSize: 25, color: Colors.white)),
-                            Text('3: Celular deve estar conectado na internet ao finalizar o registro de sono.', style: TextStyle(fontSize: 25, color: Colors.white))
+                            Text('1: O celular deve estar no silencioso e em cima da cama, proximo ao usuario;', style: TextStyle(fontSize: 15, color: Colors.white)),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                            Text('2: O celular deve estar conectado à internet ao iniciar e finalizar o registro de sono;', style: TextStyle(fontSize: 15, color: Colors.white)),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                            Text('3: Ao iniciar o registro, apenas desligue a tela, NÃO continue usando o aplicativo.', style: TextStyle(fontSize: 15, color: Colors.white))
 
                           ],
                         ),

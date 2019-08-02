@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tccappsono/screens/alarme.dart';
+import 'package:tccappsono/screens/alarmform.dart';
 import 'package:tccappsono/screens/dica.dart';
 import 'package:tccappsono/screens/dormir.dart';
 import 'package:tccappsono/screens/visaogeral.dart';
+import 'package:tccappsono/services/authentication.dart';
+import 'package:tccappsono/services/database.dart';
 import 'package:tccappsono/services/http.dart';
 
 class TelaPrincipal extends StatefulWidget {
@@ -13,7 +16,6 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-
   String qualidade = "...";
 
   _TelaPrincipalState() {
@@ -22,7 +24,10 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     })).catchError((err) => 
       this.qualidade = "ServerDown"
     );
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         appBar: AppBar(title: Row(
           children: <Widget>[
             Container(height: 30, width: 30, child: Icon(Icons.developer_mode, color: Colors.white)),
-            SizedBox(width: 70),
+            SizedBox(width: MediaQuery.of(context).size.width*0.03),
             Text('BCC UNESP - Bauru')
           ],
         ), centerTitle: true),
@@ -65,7 +70,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
               ),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Alarme()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AlarmeForm()));
                 },
                 child: Card(
                   elevation: 4,
@@ -78,10 +83,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.yellowAccent[100], width: 15))),
                     child: Row(
                       children: <Widget>[
-                        Text('Hora do Alarme:', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        Text('Configurar Alarme', style: TextStyle(fontSize: 25, color: Colors.white)),
                         SizedBox(width: 20),
-                        Text('10h20', style: TextStyle(fontSize: 20, color: Colors.white)),
-                        SizedBox(width: 15),
                         Container(height: 30, width: 30, child: Icon(Icons.edit, color: Colors.white)),
                       ],
                     ),
@@ -105,9 +108,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     child: Column(
                       children: <Widget>[
                         SizedBox(height:10),
-                        Text('Dica do Dia:', style: TextStyle(fontSize: 25, color: Colors.white)),
-                        SizedBox(height:10),
-                        Text('Higiene do Sono', style: TextStyle(fontSize: 20, color: Colors.white)),
+                        Text('Dica do Dia', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        SizedBox(height:30),
+                        Text('clique para ler', style: TextStyle(fontSize: 20, color: Colors.white)),
                         SizedBox(height: 10),
                         Container(height: 30, width: 30, child: Icon(Icons.airline_seat_flat, color: Colors.white))
                         

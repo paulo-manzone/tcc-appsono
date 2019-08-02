@@ -6,6 +6,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:screen/screen.dart';
 
 class Alarme {
+  static Timer timer, timeraux;
   static AudioPlayer advancedPlayer = new AudioPlayer();
   AudioCache player = new AudioCache(fixedPlayer: advancedPlayer);
   tocar(){
@@ -15,6 +16,8 @@ class Alarme {
 
   stop() {
     advancedPlayer.stop();
+    timer.cancel();
+    timeraux.cancel();
   }
 
 
@@ -25,18 +28,25 @@ class Alarme {
   }
 
 
-  teste (int duration){
-    Timer(Duration(seconds: duration), () {
+  run (int duration){
+    timer = Timer(Duration(seconds: duration), () {
       Screen.keepOn(true);
       tocar();
-      Timer(Duration(seconds: 10), (){
+      timeraux = Timer(Duration(seconds: 10), (){
         Screen.keepOn(false);
       });
     });
   }
 
-  setalarm(String h, String m, String s){
-
+  setAlarm(int h, int m){
+    //Fazer a tradução de hora m e segundo pra uma quantidade de segundos que o timer vai esperar até apitar
+    DateTime now = DateTime.now();
+    DateTime horadeacordar = DateTime(now.year, now.month, now.day, h,m,0);
+    if(now.isAfter(horadeacordar)){
+      horadeacordar.add(Duration(hours: 24));
+    }
+     print (horadeacordar.difference(now).inSeconds);
+     run(horadeacordar.difference(now).inSeconds);
   
   }
 }
