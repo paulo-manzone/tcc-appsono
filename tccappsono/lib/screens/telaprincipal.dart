@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tccappsono/screens/alarme.dart';
-import 'package:tccappsono/screens/alarmform.dart';
+//import 'package:tccappsono/screens/alarme.dart';
+//import 'package:tccappsono/screens/alarmform.dart';
 import 'package:tccappsono/screens/dica.dart';
 import 'package:tccappsono/screens/dormir.dart';
 import 'package:tccappsono/screens/visaogeral.dart';
@@ -68,29 +68,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   )
                 ),
               ),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AlarmeForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  borderOnForeground: true,
-                  color: Colors.blue[300],
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Container(
-                    padding: EdgeInsets.only(left: 20),
-                    height: MediaQuery.of(context).size.height*0.1,
-                    decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.yellowAccent[100], width: 15))),
-                    child: Row(
-                      children: <Widget>[
-                        Text('Configurar Alarme', style: TextStyle(fontSize: 25, color: Colors.white)),
-                        SizedBox(width: 20),
-                        Container(height: 30, width: 30, child: Icon(Icons.edit, color: Colors.white)),
-                      ],
-                    ),
-                  )
-                ),
-              ),
+              
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Dica()));

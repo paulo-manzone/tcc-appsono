@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
-import 'package:tccappsono/services/alarm.dart';
+//import 'package:tccappsono/services/alarm.dart';
 import 'package:tccappsono/services/authentication.dart';
 import 'package:tccappsono/services/database.dart';
 import 'package:screen/screen.dart';
@@ -42,7 +42,7 @@ class _DormirState extends State<Dormir> {
     Navigator.pop(context);
   }
 
-  static Alarme alarme = new Alarme();
+  //static Alarme alarme = new Alarme();
   var texto = "Aperte para começar", horac, horaf, usuario;
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true, comecou= false;
@@ -57,7 +57,7 @@ class _DormirState extends State<Dormir> {
           if(comecou){
             texto = "Gravado!";
             timer.cancel();
-            _DormirState.alarme.stop();
+            //_DormirState.alarme.stop();
             horaf = DateTime.now();
             DataBase db = new DataBase();
             Auth a = new Auth();
@@ -66,8 +66,8 @@ class _DormirState extends State<Dormir> {
             esperaresair();
           } else {
             texto = "Gravando! Aperte para finalizar";
-            if(int.parse(horaalarme)!=50)
-              alarme.setAlarm(int.parse(horaalarme),int.parse(minutoalarme));
+            //if(int.parse(horaalarme)!=50)
+              //alarme.setAlarm(int.parse(horaalarme),int.parse(minutoalarme));
             horac = DateTime.now();
             comecou = true;
             accelerometerEvents.listen((AccelerometerEvent event) {
@@ -87,7 +87,7 @@ class _DormirState extends State<Dormir> {
               }
             });
 
-            timer = Timer.periodic(Duration(seconds: 1), (timer) {
+            timer = Timer.periodic(Duration(seconds: 5), (timer) {
               padrao = true;
               if(mexeu){
                 sono.add('1');
