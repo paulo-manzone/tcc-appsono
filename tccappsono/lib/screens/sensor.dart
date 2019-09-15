@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Sensor extends StatefulWidget {
   Sensor({Key key}) : super(key: key);
@@ -15,12 +16,21 @@ class _SensorState extends State<Sensor> {
 
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true;
+  double cal=0.0; // Calibração
   int position=0;
   List sono = new List();
+
+  //Inicializando a calibração
+  _getCal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cal= (prefs.getDouble('calibracao') ?? 0);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        _getCal();
           accelerometerEvents.listen((AccelerometerEvent event) {
             this.setState((){
                 x = event.x;
@@ -33,7 +43,7 @@ class _SensorState extends State<Sensor> {
                 
             });
 
-            if(x<padraox-0.07 || x>padraox+0.07 || y<padraoy-0.07 || y>padraoy+0.07){
+            if(x<padraox-cal || x>padraox+cal || y<padraoy-cal || y>padraoy+cal){
               mexeu = true;
             }
           });
@@ -58,7 +68,7 @@ class _SensorState extends State<Sensor> {
               ListView.builder(
                     itemBuilder: (context, position) {
                       return Card(
-                        child: Text(sono[position]),
+                        child: Text(sono[position] + "=>Cal = " + cal.toString()),
                       );
                     },
                     itemCount: sono.length,

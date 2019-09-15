@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final emailController = TextEditingController();
     final senhaController = TextEditingController();
-    emailController.text = "loc@test.com";
+    emailController.text = "@test.com";
 
     return Scaffold(
       appBar: AppBar(title: Text('Login'), leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){},)),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tccappsono/screens/calibrar.dart';
 //import 'package:tccappsono/screens/alarme.dart';
 //import 'package:tccappsono/screens/alarmform.dart';
 import 'package:tccappsono/screens/dica.dart';
 import 'package:tccappsono/screens/dormir.dart';
+import 'package:tccappsono/screens/sensor.dart';
 import 'package:tccappsono/screens/visaogeral.dart';
 import 'package:tccappsono/services/authentication.dart';
 import 'package:tccappsono/services/database.dart';
 import 'package:tccappsono/services/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaPrincipal extends StatefulWidget {
   TelaPrincipal({Key key}) : super(key: key);
@@ -17,15 +20,25 @@ class TelaPrincipal extends StatefulWidget {
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
   String qualidade = "...";
+  double cal = 0;
+
+  _getCal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cal= (prefs.getDouble('calibracao') ?? 0);
+  }
+
+  _deleteCal() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+  }
 
   _TelaPrincipalState() {
+
     getQualidadeGeral().then((val) => setState(() {
       this.qualidade = val;
     })).catchError((err) => 
       this.qualidade = "ServerDown"
     );
-
-
   }
 
 
@@ -63,6 +76,77 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                         Text(this.qualidade, style: TextStyle(fontSize: 15, color: Colors.white)),
                         SizedBox(width: 15),
                         Container(height: 30, width: 30, child: Icon(Icons.info, color: Colors.white)),
+                      ],
+                    ),
+                  )
+                ),
+              ),
+
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Calibrar()));
+                },
+                child: Card(
+                  elevation: 4,
+                  borderOnForeground: true,
+                  color: Colors.blue[300],
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20),
+                    height: MediaQuery.of(context).size.height*0.1,
+                    decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Calibrar', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        SizedBox(width: 5),
+                        Container(height: 30, width: 30, child: Icon(Icons.settings_overscan, color: Colors.white)),
+                      ],
+                    ),
+                  )
+                ),
+              ),
+
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Sensor()));
+                },
+                child: Card(
+                  elevation: 4,
+                  borderOnForeground: true,
+                  color: Colors.blue[300],
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20),
+                    height: MediaQuery.of(context).size.height*0.1,
+                    decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Saidas do sensor', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        SizedBox(width: 5),
+                        Container(height: 30, width: 30, child: Icon(Icons.remove_red_eye, color: Colors.white)),
+                      ],
+                    ),
+                  )
+                ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  _deleteCal();
+                },
+                child: Card(
+                  elevation: 4,
+                  borderOnForeground: true,
+                  color: Colors.blue[300],
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20),
+                    height: MediaQuery.of(context).size.height*0.1,
+                    decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.lime[200], width: 15))),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Deletar Calibracao', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        SizedBox(width: 5),
+                        Container(height: 30, width: 30, child: Icon(Icons.delete, color: Colors.white)),
                       ],
                     ),
                   )
@@ -109,8 +193,10 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   label: Text('Dormir'),
                   icon: Icon(Icons.access_alarm),
                   onPressed: (){
-                    //Registrar sono
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dormir()));
+                    //Registrar sono -> Abre somente se a calibração tiver sido feita
+                    _getCal();
+                    if(cal == 0) Navigator.push(context, MaterialPageRoute(builder: (context) => Calibrar()));
+                    else Navigator.push(context, MaterialPageRoute(builder: (context) => Dormir()));
 
                   },
                 ),
