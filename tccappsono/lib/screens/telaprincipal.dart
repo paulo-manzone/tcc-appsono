@@ -46,10 +46,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         appBar: AppBar(title: Row(
           children: <Widget>[
             Container(height: 30, width: 30, child: Icon(Icons.developer_mode, color: Colors.white)),
-            SizedBox(width: MediaQuery.of(context).size.width*0.03),
-            Text('BCC UNESP - Bauru')
+            SizedBox(width: MediaQuery.of(context).size.width*0.1),
+            Text('AppSono - UNESP BAURU')
           ],
-        ), centerTitle: true),
+        ), centerTitle: true, automaticallyImplyLeading: false),
+        
         body: Container(
           child: ListView(
             children: <Widget>[

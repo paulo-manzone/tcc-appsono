@@ -35,7 +35,7 @@ class _CalibrarState extends State<Calibrar> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-          sono.add('Calibrando');
+          sono.add('Calibrando, Por favor deixa o celular em uma superficie plana, sem vibrações e não movimente-o');
           listacalibracao.add(0.0);
           accelerometerEvents.listen((AccelerometerEvent event) {
             this.setState((){

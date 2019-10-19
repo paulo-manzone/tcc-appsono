@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import '../services/authentication.dart';
 import 'package:tccappsono/screens/telaprincipal.dart';
 
@@ -21,15 +22,23 @@ class _LoginPageState extends State<LoginPage> {
     emailController.text = "@test.com";
 
     return Scaffold(
-      appBar: AppBar(title: Text('Login'), leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){},)),
+      appBar: AppBar(title: Text('Login'), automaticallyImplyLeading: false, centerTitle: true),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
+          padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(100, 0, 100, 5),
+                    child: Image.asset('assets/icone.png'),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: Text('AppSono', style: TextStyle(color:Color.fromRGBO(22, 343, 231, 1))),
+                  ),
                   TextFormField(
                     controller: emailController,
                     validator: (value) {
@@ -58,11 +67,13 @@ class _LoginPageState extends State<LoginPage> {
                       child: RaisedButton(
                         child: const Text('Entrar',
                             style: TextStyle(color: Colors.white)),
-                        color: Colors.blue,
+                        color: Colors.blue[800],
                         onPressed: () {
                           login(emailController.text, senhaController.text, context);
                         }
-                      ))
+                      )
+                  ),
+                  
                 ],
               )),
         ),
@@ -76,7 +87,8 @@ void login(String e, String s, context) async{
     Auth _auth = Auth();
     _auth.logar(e, s);
     if(_auth.getUser() != null){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => TelaPrincipal()));
+      Navigator.pushReplacementNamed(context,'/principal');
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => TelaPrincipal()));
     }
   }catch(e){
     

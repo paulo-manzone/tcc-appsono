@@ -12,8 +12,12 @@ class Sensor extends StatefulWidget {
 
 class _SensorState extends State<Sensor> {
 
-
-
+  @override
+  void dispose(){
+    processo.cancel();
+  }
+  
+  Timer processo;
   double x=0, y=0, padraox=0, padraoy=0;
   bool mexeu = false, padrao = true;
   double cal=0.0; // Calibração
@@ -48,7 +52,7 @@ class _SensorState extends State<Sensor> {
             }
           });
 
-          Timer.periodic(Duration(seconds: 1), (timer) {
+          processo = Timer.periodic(Duration(seconds: 1), (timer) {
             padrao = true;
             if(mexeu){
               sono.add('1');

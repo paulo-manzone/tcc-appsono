@@ -25,4 +25,15 @@ class DataBase {
   getM(u) async {
     return await getMinutoAlarme(u);
   }
+
+  getGraficos(var usuario){
+    var vetor;
+    Firestore.instance.collection('Registros').orderBy('HorarioFinal', descending: true)
+      .where('Usuario', isEqualTo: usuario).limit(1).snapshots().listen((dados){
+        dados.documents.forEach((entrada){
+          vetor = entrada["Dados"];
+        });
+    });
+    return vetor;
+  }
 }
