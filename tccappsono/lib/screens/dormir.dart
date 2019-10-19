@@ -23,9 +23,9 @@ class _DormirState extends State<Dormir> {
     ler();
   }
 
-  dispose(){
+  /*dispose(){
     this.dispose();
-  }
+  }*/
 
   ler()async{
     DataBase db1 = new DataBase();
