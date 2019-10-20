@@ -26,14 +26,16 @@ class DataBase {
     return await getMinutoAlarme(u);
   }
 
-  getGraficos(var usuario){
-    var vetor;
-    Firestore.instance.collection('Registros').orderBy('HorarioFinal', descending: true)
-      .where('Usuario', isEqualTo: usuario).limit(1).snapshots().listen((dados){
-        dados.documents.forEach((entrada){
-          vetor = entrada["Dados"];
-        });
+  getGr(var usuario){
+    return Firestore.instance.collection('Registros').where('Usuario', isEqualTo: usuario).getDocuments()
+    .then((a){
+      return a.documents.elementAt(a.documents.length-1)['Dados'];
     });
-    return vetor;
   }
+
+  getGraficos(var usuario){
+    return Firestore.instance.collection('Registros').document('-LrSxSFGPssUF6sA0st6').get().then((a)=> a['Dados']);
+  }
+
+
 }

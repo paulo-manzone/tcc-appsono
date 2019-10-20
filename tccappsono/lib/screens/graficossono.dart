@@ -13,60 +13,79 @@ class GraficosSono extends StatefulWidget {
 class _GraficosSonoState extends State<GraficosSono> {
 
   List<charts.Series<Sono, int>> _seriesData;
-  _generateData(){
-    var datasono = [
-      new Sono(0,1),
-      new Sono(1,1),
-      new Sono(2,0),
-      new Sono(3,1),
-      new Sono(4,0),
-      new Sono(5,0),
-      new Sono(6,0),
-      new Sono(7,1),
-      new Sono(8,0),
-      new Sono(9,0),
-      new Sono(10,1)
+  var dadosSono = [
+      new Sono(0,0)
     ];
 
+  _generateData() async{
     DataBase db = new DataBase();
     Auth au = new Auth();
-    if(db.getGraficos(au.getUser()) != null)
-     datasono = db.getGraficos(au.getUser()); 
-    
+    List a = await db.getGr(au.getUser().email);
+    int l;
+    var datasonox = <Sono>[];
+    for (int i = 0; i < a.length; i++){
+       l = int.parse(a[i]);
+       datasonox.add(new Sono(i, l));
+     }
+     return datasonox;
+  }
+
+  _GraficosSonoState(){
+    _seriesData = new List<charts.Series<Sono, int>>();
     _seriesData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Sono',
-        data: datasono,
-        domainFn: (Sono sono, _) => sono.x,
-        measureFn: (Sono sono, _) => sono.y,
-      ),
+              charts.Series(
+                colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+                id: 'Sono',
+                data: dadosSono,
+                domainFn: (Sono sono, _) => sono.x,
+                measureFn: (Sono sono, _) => sono.y,
+              ),
     );
-    int i = 0;
-  }
+    _generateData().then((a){
+      setState(() {
+        dadosSono = a;
+        _seriesData = new List<charts.Series<Sono, int>>();
+        _seriesData.add(
+              charts.Series(
+                colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+                id: 'Sono',
+                data: dadosSono,
+                domainFn: (Sono sono, _) => sono.x,
+                measureFn: (Sono sono, _) => sono.y,
+              ),
+        );
+      });
+    });
 
-  @override
-  void initState() { 
-    super.initState();
-    _seriesData = List<charts.Series<Sono, int>>();
-    _generateData();
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title:Text('Seu Sono'), centerTitle: true),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(10, 50, 10, 20),
-        height: MediaQuery.of(context).size.height*0.5,
-        child: charts.LineChart(
-          _seriesData,
-          animate: true,
-          animationDuration: Duration(seconds: 1),
-          )
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 50, 10, 20),
+            height: MediaQuery.of(context).size.height*0.5,
+            child: charts.LineChart(
+              _seriesData,
+              animate: true,
+              animationDuration: Duration(milliseconds: 500),
+              
+              )
  
+          ),
+          Text('Dados da sua última noite de sono'),
+          Container(
+            child: Text('Perceba como sua agitação varia durante a noite, tendo picos de forma cíclica. ' + 
+            'Acordar em um momento de sono mais leve (com maior agitação) pode melhorar a sua disposição'),
+            padding: EdgeInsets.fromLTRB(50, 50, 50, 20),
+          )
+          
+          
+        ],
+        
       )
     );
   }
