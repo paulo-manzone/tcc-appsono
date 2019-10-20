@@ -141,7 +141,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                 height: MediaQuery.of(context).size.height*0.3,
                 child: FloatingActionButton.extended(
                   shape: CircleBorder(),
-                  backgroundColor: Colors.green[300],
+                  backgroundColor: Colors.orange[300],
                   foregroundColor: Colors.white,
                   label: Text('Dormir'),
                   icon: Icon(Icons.access_alarm),
